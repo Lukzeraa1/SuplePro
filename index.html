@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuplePro · Dashboard de Gestão para Afiliados de Encapsulados</title>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1700431424489390');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1700431424489390&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!--
+  ╔══════════════════════════════════════════════════════╗
+  ║  INSTRUÇÃO: substitua URL_DO_CHECKOUT_AQUI pelo link  ║
+  ║  real do seu checkout em todos os botões da página.  ║
+  ║  Use Ctrl+F → "URL_DO_CHECKOUT_AQUI" para localizar. ║
+  ╚══════════════════════════════════════════════════════╝
+-->
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #080a0d;
+  --surface: #0f1217;
+  --surface2: #161b22;
+  --border: #1e2530;
+  --accent: #4ade80;
+  --text: #eef2f7;
+  --muted: #4b5563;
+  --muted2: #6b7280;
+  --serif: 'Instrument Serif', serif;
+  --sans: 'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+.wrapper { position: relative; z-index: 1; }
+
+/* ── NAV ── */
+nav {
+  padding: 22px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--muted2);
+}
+.nav-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 14px var(--accent);
+  animation: breathe 3s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(.7); }
+}
+.nav-cta {
+  padding: 9px 20px; background: var(--accent); color: #000;
+  border: none; border-radius: 8px;
+  font-family: var(--sans); font-size: 13px; font-weight: 600;
+  cursor: pointer; text-decoration: none; transition: opacity .2s, transform .2s;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.nav-cta:hover { opacity: .9; transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  padding: 100px 40px 80px;
+  max-width: 900px; margin: 0 auto;
+  text-align: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 14px; border: 1px solid var(--border);
+  border-radius: 20px; background: var(--surface);
+  font-size: 12px; color: var(--muted2); letter-spacing: .5px;
+  margin-bottom: 40px; animation: fadeUp .6s ease both;
+}
+.hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+.hero h1 {
+  font-family: var(--serif); font-size: clamp(42px, 7vw, 82px);
+  font-weight: 400; line-height: 1.08; letter-spacing: -.5px;
+  margin-bottom: 24px;
+  animation: fadeUp .6s .1s ease both;
+}
+.hero h1 em { font-style: italic; color: var(--accent); }
+
+.hero p {
+  font-size: clamp(16px, 2vw, 19px); color: var(--muted2); font-weight: 300;
+  line-height: 1.7; max-width: 580px; margin: 0 auto 48px;
+  animation: fadeUp .6s .2s ease both;
+}
+
+.hero-ctas {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  animation: fadeUp .6s .3s ease both;
+}
+.btn-primary {
+  padding: 15px 32px; background: var(--accent); color: #000;
+  border: none; border-radius: 10px;
+  font-family: var(--sans); font-size: 15px; font-weight: 600;
+  cursor: pointer; text-decoration: none; transition: all .2s;
+  display: inline-flex; align-items: center; gap: 9px;
+}
+.btn-primary:hover { opacity: .9; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(74,222,128,.2); }
+.btn-ghost {
+  padding: 15px 28px; background: transparent; color: var(--muted2);
+  border: 1px solid var(--border); border-radius: 10px;
+  font-family: var(--sans); font-size: 15px; font-weight: 500;
+  cursor: pointer; text-decoration: none; transition: all .2s;
+}
+.btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── DASHBOARD PREVIEW ── */
+.preview-wrap {
+  max-width: 1100px; margin: 0 auto 100px;
+  padding: 0 24px;
+  animation: fadeUp .8s .4s ease both;
+}
+.preview-frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px; overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,.6), 0 0 0 1px rgba(74,222,128,.06);
+}
+.preview-bar {
+  padding: 14px 20px;
+  background: var(--surface2); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 7px;
+}
+.preview-bar-dot { width: 10px; height: 10px; border-radius: 50%; }
+.preview-inner { padding: 24px; }
+
+/* Mini dashboard mockup */
+.mock-tabs { display: flex; gap: 4px; margin-bottom: 20px; }
+.mock-tab {
+  padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 600;
+}
+.mock-tab.on { background: var(--accent); color: #000; }
+.mock-tab.off { background: var(--surface2); color: var(--muted2); }
+
+.mock-cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 16px; }
+.mock-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px 16px; position: relative; overflow: hidden;
+}
+.mock-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.mock-card:nth-child(1)::before { background: var(--accent); }
+.mock-card:nth-child(2)::before { background: #f87171; }
+.mock-card:nth-child(3)::before { background: var(--accent); }
+.mock-card:nth-child(4)::before { background: var(--muted); }
+.mock-card-label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.mock-card-value { font-size: 22px; font-weight: 500; font-family: monospace; }
+.mock-card-value.g { color: var(--accent); }
+.mock-card-value.r { color: #f87171; }
+.mock-card-sub { font-size: 10px; color: var(--muted2); margin-top: 3px; }
+
+.mock-chart {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px; height: 120px;
+  display: flex; align-items: flex-end; gap: 6px; overflow: hidden;
+}
+.mock-bar {
+  flex: 1; border-radius: 3px 3px 0 0;
+  background: linear-gradient(to top, rgba(74,222,128,.15), rgba(74,222,128,.4));
+  border: 1px solid rgba(74,222,128,.2);
+  transition: height .4s ease;
+}
+.mock-bar.hi { background: linear-gradient(to top, rgba(74,222,128,.3), var(--accent)); border-color: var(--accent); }
+
+/* ── STATS STRIP ── */
+.stats-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 40px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 40px; margin-bottom: 100px;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: var(--serif); font-size: 52px; font-weight: 400;
+  color: var(--accent); line-height: 1; margin-bottom: 8px;
+}
+.stat-label { font-size: 13px; color: var(--muted2); }
+
+/* ── FEATURES ── */
+.features-section {
+  max-width: 1000px; margin: 0 auto 100px; padding: 0 40px;
+}
+.section-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+}
+.section-title-big {
+  font-family: var(--serif); font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400; line-height: 1.15; margin-bottom: 16px;
+}
+.section-title-big em { font-style: italic; color: var(--muted2); }
+.section-sub { font-size: 16px; color: var(--muted2); line-height: 1.7; max-width: 520px; margin-bottom: 60px; }
+
+.features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:640px){ .features-grid { grid-template-columns: 1fr; } }
+.feature-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px;
+  transition: border-color .2s, transform .2s;
+}
+.feature-card:hover { border-color: rgba(74,222,128,.3); transform: translateY(-2px); }
+.feature-card.large { grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; }
+@media(max-width:640px){ .feature-card.large { grid-column: span 1; grid-template-columns: 1fr; } }
+.feat-icon { font-size: 28px; margin-bottom: 14px; }
+.feat-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+.feat-desc { font-size: 14px; color: var(--muted2); line-height: 1.65; }
+
+/* mini funil demo */
+.mini-funil { display: flex; gap: 6px; align-items: flex-end; height: 80px; margin-top: 20px; }
+.mf-bar {
+  flex: 1; border-radius: 3px 3px 0 0;
+  position: relative;
+}
+.mf-bar::after {
+  content: attr(data-n);
+  position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%);
+  font-size: 9px; color: var(--muted); white-space: nowrap;
+}
+.mf-label {
+  font-size: 10px; text-align: center; color: var(--muted2); margin-top: 24px;
+  font-family: monospace;
+}
+
+/* ── HOW IT WORKS ── */
+.how-section {
+  max-width: 900px; margin: 0 auto 100px; padding: 0 40px;
+}
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step {
+  display: grid; grid-template-columns: 48px 1fr; gap: 24px;
+  padding: 32px 0; border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 20px; color: var(--muted2);
+  flex-shrink: 0;
+}
+.step.active .step-num { border-color: var(--accent); color: var(--accent); background: rgba(74,222,128,.06); }
+.step-title { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+.step-desc { font-size: 14px; color: var(--muted2); line-height: 1.65; }
+
+/* ── DEPOIMENTOS ── */
+.testimonials-section {
+  max-width: 1000px; margin: 0 auto 100px; padding: 0 40px;
+}
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+@media(max-width:768px){ .testimonials-grid { grid-template-columns: 1fr; } }
+.testimonial-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px;
+  position: relative;
+  transition: border-color .2s, transform .2s;
+}
+.testimonial-card:hover { border-color: rgba(74,222,128,.2); transform: translateY(-2px); }
+.testimonial-stars { color: var(--accent); font-size: 13px; letter-spacing: 2px; margin-bottom: 14px; }
+.testimonial-text {
+  font-size: 14px; color: var(--muted2); line-height: 1.75;
+  font-style: italic; font-weight: 300; margin-bottom: 20px;
+}
+.testimonial-text em { font-style: normal; color: var(--text); font-weight: 500; }
+.testimonial-author {
+  display: flex; align-items: center; gap: 12px;
+}
+.testimonial-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--surface2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; color: var(--accent);
+  font-family: var(--sans); flex-shrink: 0;
+}
+.testimonial-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.testimonial-role { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.testimonial-quote-icon {
+  position: absolute; top: 20px; right: 22px;
+  font-size: 32px; line-height: 1; color: var(--border);
+  font-family: var(--serif); pointer-events: none;
+}
+
+/* ── GARANTIA ── */
+.guarantee-section {
+  max-width: 860px; margin: 0 auto 100px; padding: 0 40px;
+}
+.guarantee-box {
+  background: var(--surface); border: 1px solid rgba(74,222,128,.18);
+  border-radius: 18px; padding: 48px 40px;
+  display: grid; grid-template-columns: auto 1fr; gap: 36px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.guarantee-box::before {
+  content: '';
+  position: absolute; top: -60px; left: -60px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(74,222,128,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+@media(max-width:640px){ .guarantee-box { grid-template-columns: 1fr; gap: 24px; text-align: center; } }
+.guarantee-shield {
+  width: 88px; height: 88px; border-radius: 50%;
+  background: rgba(74,222,128,.07); border: 2px solid rgba(74,222,128,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 38px; flex-shrink: 0;
+}
+.guarantee-title {
+  font-family: var(--serif); font-size: clamp(22px, 3vw, 32px);
+  font-weight: 400; line-height: 1.2; margin-bottom: 10px; color: var(--text);
+}
+.guarantee-title em { font-style: italic; color: var(--accent); }
+.guarantee-desc { font-size: 14px; color: var(--muted2); line-height: 1.75; }
+.guarantee-desc strong { color: var(--text); font-weight: 600; }
+
+/* ── CTA FINAL ── */
+.cta-section {
+  margin: 0 40px 100px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px; padding: 70px 40px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+  width: 500px; height: 300px;
+  background: radial-gradient(ellipse, rgba(74,222,128,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-section h2 {
+  font-family: var(--serif); font-size: clamp(32px, 5vw, 58px);
+  font-weight: 400; line-height: 1.1; margin-bottom: 20px;
+}
+.cta-section h2 em { font-style: italic; color: var(--accent); }
+.cta-section p { font-size: 16px; color: var(--muted2); margin-bottom: 40px; }
+.cta-wpp {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 40px;
+  background: var(--accent); color: #000;
+  border: none; border-radius: 12px;
+  font-family: var(--sans); font-size: 16px; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  transition: all .25s;
+  box-shadow: 0 0 0 0 rgba(74,222,128,.4);
+  animation: pulse-btn 2.5s ease-in-out infinite;
+}
+.cta-wpp:hover { opacity: .95; transform: translateY(-2px); box-shadow: 0 16px 48px rgba(74,222,128,.25); }
+@keyframes pulse-btn {
+  0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,.3); }
+  50%      { box-shadow: 0 0 0 14px rgba(74,222,128,.0); }
+}
+.cta-sub { margin-top: 18px; font-size: 13px; color: var(--muted); }
+.cta-guarantee-note {
+  margin-top: 16px; font-size: 12px; color: var(--muted);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+
+/* ── OBJECTIONS / FAQ ── */
+.faq-section {
+  max-width: 700px; margin: 0 auto 100px; padding: 0 40px;
+}
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  width: 100%; background: none; border: none; color: var(--text);
+  font-family: var(--sans); font-size: 15px; font-weight: 500;
+  padding: 22px 0; text-align: left; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.faq-q:hover { color: var(--accent); }
+.faq-q .arr { font-size: 18px; color: var(--muted); transition: transform .3s; flex-shrink: 0; }
+.faq-item.open .faq-q .arr { transform: rotate(45deg); color: var(--accent); }
+.faq-a {
+  font-size: 14px; color: var(--muted2); line-height: 1.7;
+  max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s;
+  padding-bottom: 0;
+}
+.faq-item.open .faq-a { max-height: 300px; padding-bottom: 22px; }
+
+/* ── PRICE BLOCK ── */
+.price-section {
+  max-width: 600px; margin: 0 auto 80px; padding: 0 40px;
+  text-align: center;
+}
+.price-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 20px; padding: 52px 40px;
+  position: relative; overflow: hidden;
+}
+.price-card::before {
+  content: '';
+  position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+  width: 400px; height: 200px;
+  background: radial-gradient(ellipse, rgba(74,222,128,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.price-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+}
+.price-value {
+  display: flex; align-items: flex-start; justify-content: center;
+  gap: 6px; margin-bottom: 8px;
+}
+.price-currency {
+  font-family: var(--sans); font-size: 22px; font-weight: 500;
+  color: var(--muted2); margin-top: 10px;
+}
+.price-amount {
+  font-family: var(--serif); font-size: clamp(64px, 10vw, 96px);
+  font-weight: 400; line-height: 1; color: var(--text);
+}
+.price-cents {
+  font-family: var(--sans); font-size: 22px; font-weight: 500;
+  color: var(--muted2); margin-top: 10px;
+}
+.price-once { font-size: 13px; color: var(--muted); margin-bottom: 32px; }
+.price-includes {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-bottom: 36px; text-align: left; max-width: 340px; margin-left: auto; margin-right: auto;
+}
+.price-include-item {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px; color: var(--muted2);
+}
+.price-include-item span { color: var(--accent); font-size: 15px; flex-shrink: 0; }
+.price-guarantee-badge {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-top: 20px; padding: 10px 16px;
+  background: rgba(74,222,128,.05); border: 1px solid rgba(74,222,128,.12);
+  border-radius: 10px; font-size: 12px; color: var(--muted2);
+}
+.price-guarantee-badge strong { color: var(--accent); font-weight: 600; }
+
+/* ── COMO ACESSAR SECTION ── */
+.access-section {
+  max-width: 860px; margin: 0 auto 100px; padding: 0 40px;
+}
+.access-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 18px; padding: 48px 40px;
+  position: relative; overflow: hidden;
+}
+.access-box::before {
+  content: '';
+  position: absolute; bottom: -60px; right: -60px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(74,222,128,.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.access-steps-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+  margin-top: 36px;
+}
+@media(max-width:640px){ .access-steps-grid { grid-template-columns: 1fr; } }
+.access-step {
+  padding: 0 28px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.access-step:first-child { padding-left: 0; }
+.access-step:last-child { border-right: none; padding-right: 0; }
+@media(max-width:640px){
+  .access-step { border-right: none; border-bottom: 1px solid var(--border); padding: 24px 0; text-align: left; }
+  .access-step:last-child { border-bottom: none; }
+}
+.access-step-icon { font-size: 28px; margin-bottom: 12px; }
+.access-step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--surface2);
+  font-size: 11px; font-weight: 600; color: var(--muted2);
+  margin-bottom: 12px;
+}
+.access-step-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+.access-step-desc { font-size: 13px; color: var(--muted2); line-height: 1.65; }
+.access-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(74,222,128,.07); border: 1px solid rgba(74,222,128,.18);
+  border-radius: 20px; padding: 7px 16px;
+  font-size: 12px; color: var(--accent); font-weight: 500;
+  margin-bottom: 24px;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── IDENTIFICATION SECTION ── */
+.id-section {
+  max-width: 1000px; margin: 0 auto 100px; padding: 0 40px;
+  text-align: center;
+}
+.id-section-title {
+  font-family: var(--serif); font-size: clamp(22px, 2.8vw, 32px);
+  font-weight: 400; color: var(--muted2); line-height: 1.45;
+  margin-bottom: 48px; max-width: 680px; margin-left: auto; margin-right: auto;
+}
+.id-section-title strong { color: var(--text); font-weight: 400; font-style: italic; }
+.id-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  margin-bottom: 48px; text-align: left;
+}
+@media(max-width:768px){ .id-cards { grid-template-columns: 1fr; } }
+.id-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px 22px;
+  position: relative;
+  transition: border-color .25s, transform .25s;
+}
+.id-card:hover { border-color: rgba(74,222,128,.18); transform: translateY(-2px); }
+.id-card-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 14px;
+}
+.id-card-tag-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+.id-card p {
+  font-size: 14px; color: var(--muted2); line-height: 1.75;
+  font-style: italic; font-weight: 300;
+}
+.id-card p em {
+  font-style: normal; color: var(--text); font-weight: 500;
+}
+.id-card-quote {
+  position: absolute; top: 18px; right: 20px;
+  font-size: 36px; line-height: 1; color: var(--border);
+  font-family: var(--serif); pointer-events: none;
+}
+.id-transition {
+  font-family: var(--serif); font-size: clamp(20px, 2.6vw, 28px);
+  font-weight: 400; color: var(--text); line-height: 1.4;
+  max-width: 700px; margin: 0 auto;
+}
+.id-transition em { font-style: italic; color: var(--accent); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border); padding: 40px 40px;
+  font-size: 12px; color: var(--muted);
+}
+.footer-top {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border);
+}
+.footer-legal {
+  display: flex; flex-wrap: wrap; gap: 16px; font-size: 11px; color: var(--muted);
+  line-height: 1.7;
+}
+.footer-legal a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.footer-legal a:hover { color: var(--muted2); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  nav { padding: 18px 20px; }
+  .hero { padding: 60px 20px 50px; }
+  .stats-strip { padding: 40px 20px; gap: 28px; }
+  .features-section, .how-section, .faq-section { padding: 0 20px; }
+  .cta-section { margin: 0 16px 60px; padding: 48px 24px; }
+  .mock-cards { grid-template-columns: 1fr 1fr; }
+  .preview-wrap { padding: 0 14px; }
+  footer { padding: 32px 20px; }
+  .guarantee-section { padding: 0 20px; }
+  .testimonials-section { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-dot"></div>
+    SuplePro
+  </div>
+  <a href="URL_DO_CHECKOUT_AQUI" class="nav-cta" target="_blank">
+    Quero o SuplePro agora →
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <div class="hero-badge-dot"></div>
+    Para afiliados de encapsulados
+  </div>
+
+  <h1>Pare de perder dinheiro<br>por falta de dados.<br><em>Tenha o controle</em> do seu funil de encapsulados e tráfego, tudo em um só lugar.</h1>
+
+  <p>O SuplePro é um portal completo para acompanhar suas vendas, tráfego, comissões e funil de atendimento — tudo num único arquivo, sem instalar nada, que você abre direto no navegador.</p>
+
+  <div class="hero-ctas">
+    <a href="URL_DO_CHECKOUT_AQUI" target="_blank" class="btn-primary">
+      Quero o SuplePro agora →
+    </a>
+    <a href="#features" class="btn-ghost">Ver o que está incluso</a>
+  </div>
+</section>
+
+<!-- IDENTIFICAÇÃO / STORYTELLING -->
+<section class="id-section reveal">
+  <p class="id-section-title">
+    Se você roda tráfego para WhatsApp, provavelmente já se pegou<br>
+    <strong>dizendo isso:</strong>
+  </p>
+
+  <div class="id-cards">
+    <div class="id-card">
+      <div class="id-card-tag"><div class="id-card-tag-dot"></div>ROI cego</div>
+      <div class="id-card-quote">"</div>
+      <p>"Oxe, estou gastando <em>R$ 100 por dia</em> em tráfego e voltando R$ 200 de faturamento... Sei que o ROI dá para ser maior, mas não sei qual criativo ou público está salvando o dia."</p>
+    </div>
+    <div class="id-card">
+      <div class="id-card-tag"><div class="id-card-tag-dot"></div>Gargalo no script</div>
+      <div class="id-card-quote">"</div>
+      <p>"Caramba, estou <em>perdendo quase todo mundo</em> do Bloco 2 para o Bloco 3 no WhatsApp... Meu script deve estar errando em alguma coisa, mas sem ver o gráfico de drop-off, estou vendendo no escuro."</p>
+    </div>
+    <div class="id-card">
+      <div class="id-card-tag"><div class="id-card-tag-dot"></div>Bagunça operacional</div>
+      <div class="id-card-quote">"</div>
+      <p>"Fiz 5 vendas de manhã no X1, mais 3 à tarde pelo link direto, mas só vou saber o meu <em>lucro real no final do mês</em> quando fechar a fatura do cartão de tráfego. Que canseira...""</p>
+    </div>
+  </div>
+
+  <p class="id-transition">
+    Chega de operar no escuro. É assim que os <em>grandes players</em><br>enxergam a operação deles todos os dias:
+  </p>
+</section>
+
+<!-- PREVIEW DASHBOARD -->
+<div class="preview-wrap">
+  <div class="preview-frame">
+    <div class="preview-bar">
+      <div class="preview-bar-dot" style="background:#f87171;"></div>
+      <div class="preview-bar-dot" style="background:#fbbf24;margin-left:2px;"></div>
+      <div class="preview-bar-dot" style="background:#4ade80;margin-left:2px;"></div>
+    </div>
+    <div class="preview-inner">
+      <div class="mock-tabs">
+        <div class="mock-tab on">Dashboard</div>
+        <div class="mock-tab off">Funil</div>
+        <div class="mock-tab off">Leads</div>
+        <div class="mock-tab off">Registrar</div>
+      </div>
+      <div class="mock-cards">
+        <div class="mock-card">
+          <div class="mock-card-label">Receita</div>
+          <div class="mock-card-value g">R$ 4.780</div>
+          <div class="mock-card-sub">↑ 23% vs ontem</div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-label">Tráfego</div>
+          <div class="mock-card-value r">R$ 1.240</div>
+          <div class="mock-card-sub">custo do dia</div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-label">Lucro</div>
+          <div class="mock-card-value g">R$ 3.540</div>
+          <div class="mock-card-sub">ROI 285%</div>
+        </div>
+        <div class="mock-card">
+          <div class="mock-card-label">Vendas</div>
+          <div class="mock-card-value" style="color:var(--text);">12</div>
+          <div class="mock-card-sub">ticket R$ 398</div>
+        </div>
+      </div>
+      <div class="mock-chart">
+        <div class="mock-bar" style="height:40%;"></div>
+        <div class="mock-bar" style="height:55%;"></div>
+        <div class="mock-bar" style="height:35%;"></div>
+        <div class="mock-bar" style="height:70%;"></div>
+        <div class="mock-bar" style="height:50%;"></div>
+        <div class="mock-bar hi" style="height:88%;"></div>
+        <div class="mock-bar" style="height:65%;"></div>
+        <div class="mock-bar" style="height:72%;"></div>
+        <div class="mock-bar hi" style="height:95%;"></div>
+        <div class="mock-bar" style="height:60%;"></div>
+        <div class="mock-bar" style="height:48%;"></div>
+        <div class="mock-bar hi" style="height:100%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip reveal">
+  <div class="stat">
+    <div class="stat-num">5</div>
+    <div class="stat-label">abas integradas de gestão</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">online — acesse de qualquer dispositivo</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">R$ 0</div>
+    <div class="stat-label">mensalidade — pagamento único vitalício</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">∞</div>
+    <div class="stat-label">leads e registros sem limite</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features-section reveal" id="features">
+  <div class="section-eyebrow">O que está incluso</div>
+  <h2 class="section-title-big">Tudo que você precisa,<br><em>nada que você não usa.</em></h2>
+  <p class="section-sub">Cada funcionalidade foi pensada para a rotina real de um afiliado de encapsulados que trabalha com tráfego pago.</p>
+
+  <div class="features-grid">
+
+    <div class="feature-card">
+      <div class="feat-icon">📊</div>
+      <div class="feat-title">Dashboard com métricas reais</div>
+      <div class="feat-desc">Receita, lucro, ROI, ticket médio e custo de tráfego — atualizados automaticamente conforme você registra as vendas ao longo do dia. Filtre por dia, semana, mês ou período customizado.</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feat-icon">💰</div>
+      <div class="feat-title">Registro de vendas individual</div>
+      <div class="feat-desc">Fez 3 vendas de manhã? Registra agora. Mais 2 à tarde? Registra de novo. Cada venda tem valor e % de comissão (padrão 60%). O total acumula sozinho — tráfego você lança só no final do dia.</div>
+    </div>
+
+    <div class="feature-card large">
+      <div>
+        <div class="feat-icon">🔬</div>
+        <div class="feat-title">Funil de atendimento visual</div>
+        <div class="feat-desc">Acompanhe onde seus leads estão travando. Cada lead é posicionado apenas na etapa onde ele está agora — sem inflar os números. Veja o gráfico de barras e a taxa de drop-off em cada bloco do seu funil.</div>
+      </div>
+      <div>
+        <div class="mini-funil" id="miniFunil">
+          <div class="mf-bar" data-n="E0" style="height:100%;background:rgba(74,222,128,.2);border-radius:3px 3px 0 0;"></div>
+          <div class="mf-bar" data-n="E1" style="height:65%;background:rgba(74,222,128,.25);border-radius:3px 3px 0 0;"></div>
+          <div class="mf-bar" data-n="E2" style="height:48%;background:rgba(74,222,128,.32);border-radius:3px 3px 0 0;"></div>
+          <div class="mf-bar" data-n="E3" style="height:35%;background:rgba(74,222,128,.4);border-radius:3px 3px 0 0;"></div>
+          <div class="mf-bar" data-n="E4" style="height:25%;background:rgba(74,222,128,.5);border-radius:3px 3px 0 0;"></div>
+          <div class="mf-bar" data-n="E5" style="height:18%;background:rgba(74,222,128,.65);border-radius:3px 3px 0 0;"></div>
+          <div class="mf-bar" data-n="E6" style="height:12%;background:rgba(74,222,128,.8);border-radius:3px 3px 0 0;"></div>
+          <div class="mf-bar" data-n="E7" style="height:8%;background:var(--accent);border-radius:3px 3px 0 0;box-shadow:0 0 10px rgba(74,222,128,.4);"></div>
+        </div>
+        <div class="mf-label" style="margin-top:28px;">E0 Recebidos → E7 Compraram</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feat-icon">👥</div>
+      <div class="feat-title">CRM de leads integrado</div>
+      <div class="feat-desc">Registre cada lead com nome, telefone, bloco que chegou, status e observações. O funil é gerado automaticamente a partir desses dados. Edite, filtre e exclua leads a qualquer momento.</div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feat-icon">🖥️</div>
+      <div class="feat-title">Zero instalação, zero complicação</div>
+      <div class="feat-desc">É um arquivo que você abre direto no navegador — Chrome, Edge ou Firefox. Funciona no Windows, Mac e celular. Não precisa instalar nada, criar conta ou configurar servidor.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMO FUNCIONA (unificado) -->
+<section class="how-section reveal">
+  <div class="section-eyebrow">Como funciona</div>
+  <h2 class="section-title-big" style="margin-bottom:48px;">Do primeiro clique<br><em>à primeira decisão.</em></h2>
+
+  <div class="steps">
+    <div class="step active">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Compra e recebe na hora</div>
+        <div class="step-desc">Após o pagamento, o arquivo do SuplePro cai no seu e-mail imediatamente. Sem espera, sem fila, sem burocracia.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Abre e configura em 2 minutos</div>
+        <div class="step-desc">Clique uma vez e o portal já abre no navegador. Defina sua % de comissão padrão (já vem em 60%) e pronto. Ensino a configurar em menos de 5 minutos pelo WhatsApp se precisar.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Registre cada venda no dia a dia</div>
+        <div class="step-desc">Fez vendas de manhã? Registra agora. Mais vendas à tarde? Registra de novo. Cadastre leads, atualize o funil e anote o canal de entrada (X1, link direto, grupo...).</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Lance o tráfego e veja o lucro real</div>
+        <div class="step-desc">No final do dia, adicione o custo do Meta Ads. O SuplePro calcula automaticamente lucro, ROI e custo por venda. Histórico acumulado, gráficos e drop-off do funil — tudo em segundos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="testimonials-section reveal">
+  <div class="section-eyebrow">Quem já usa</div>
+  <h2 class="section-title-big" style="margin-bottom:48px;">Resultados de quem<br><em>parou de operar no escuro.</em></h2>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-quote-icon">"</div>
+      <div class="testimonial-stars">★★★★★</div>
+      <div class="testimonial-text">Antes eu não sabia se estava tendo lucro ou prejuízo no dia. Com o SuplePro, <em>em 5 minutos já sei meu ROI exato</em> e quais leads estão travando no script.</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">R</div>
+        <div>
+          <div class="testimonial-name">Rafael M.</div>
+          <div class="testimonial-role">Afiliado de encapsulados · São Paulo</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote-icon">"</div>
+      <div class="testimonial-stars">★★★★★</div>
+      <div class="testimonial-text">Simples de verdade. Abri, configurei a comissão e já comecei a registrar. <em>Não precisei de nenhum tutorial</em> — e quando tive dúvida, o suporte respondeu em minutos.</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">J</div>
+        <div>
+          <div class="testimonial-name">Juliana C.</div>
+          <div class="testimonial-role">Afiliada iniciante · Recife</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-quote-icon">"</div>
+      <div class="testimonial-stars">★★★★★</div>
+      <div class="testimonial-text">O gráfico de drop-off do funil mudou meu jogo. <em>Descobri que perdia 70% dos leads entre o Bloco 2 e o 3</em> — ajustei o script e a conversão dobrou em uma semana.</div>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">T</div>
+        <div>
+          <div class="testimonial-name">Thiago A.</div>
+          <div class="testimonial-role">Afiliado avançado · Goiânia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GARANTIA -->
+<section class="guarantee-section reveal">
+  <div class="guarantee-box">
+    <div class="guarantee-shield">🛡️</div>
+    <div>
+      <div class="section-eyebrow">Garantia</div>
+      <div class="guarantee-title">7 dias de garantia<br><em>incondicional.</em></div>
+      <p class="guarantee-desc">
+        Se por qualquer motivo o SuplePro não for o que você esperava, basta enviar uma mensagem no WhatsApp em até <strong>7 dias corridos</strong> após a compra e devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia — é seu direito como consumidor digital e eu honro isso. Você não tem nada a perder.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PREÇO -->
+<section class="price-section reveal">
+  <div class="price-card">
+    <div class="price-label">Investimento único</div>
+    <div class="price-value">
+      <span class="price-currency">R$</span>
+      <span class="price-amount">49</span>
+      <span class="price-cents">,00</span>
+    </div>
+    <div class="price-once">Pagamento único · Sem mensalidade · Acesso vitalício</div>
+    <div class="price-includes">
+      <div class="price-include-item"><span>✓</span> Portal SuplePro completo — acesso imediato</div>
+      <div class="price-include-item"><span>✓</span> Dashboard de vendas, tráfego e ROI</div>
+      <div class="price-include-item"><span>✓</span> Funil de leads com drop-off visual</div>
+      <div class="price-include-item"><span>✓</span> CRM de leads integrado</div>
+      <div class="price-include-item"><span>✓</span> Funciona em qualquer dispositivo, sem instalar nada</div>
+      <div class="price-include-item"><span>✓</span> Suporte via WhatsApp para configuração</div>
+      <div class="price-include-item"><span>✓</span> 7 dias de garantia incondicional</div>
+    </div>
+    <a href="URL_DO_CHECKOUT_AQUI" target="_blank" class="cta-wpp" style="width:100%;justify-content:center;box-sizing:border-box;">
+      Quero o SuplePro agora →
+    </a>
+    <div class="cta-sub">Acesso imediato após a confirmação do pagamento</div>
+    <div class="price-guarantee-badge">
+      🛡️ <strong>Garantia de 7 dias</strong> — devolução 100% sem perguntas
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section reveal">
+  <div class="section-eyebrow">Dúvidas</div>
+  <h2 class="section-title-big" style="margin-bottom:40px;">Perguntas<br><em>frequentes.</em></h2>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      Preciso ter conhecimento técnico para usar? <span class="arr">+</span>
+    </button>
+    <div class="faq-a">Não precisa de nenhum conhecimento técnico. O SuplePro foi feito para ser usado por qualquer pessoa — basta clicar no arquivo e ele já abre no navegador, como um site normal. Se tiver qualquer dúvida na configuração inicial, tem suporte via WhatsApp e eu explico em minutos.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      Precisa instalar alguma coisa? <span class="arr">+</span>
+    </button>
+    <div class="faq-a">Não. É um arquivo que você abre direto no navegador (Chrome, Edge, Firefox). Funciona no Windows, Mac e celular. Sem instalar nada, sem criar conta, sem configurar servidor.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      Onde ficam salvos meus dados? <span class="arr">+</span>
+    </button>
+    <div class="faq-a">Você pode escolher: os dados ficam sincronizados na nuvem, acessíveis de qualquer dispositivo com internet. Ou ficam salvos localmente no navegador, para uso 100% offline. Você decide.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      Funciona para qualquer nicho de encapsulados? <span class="arr">+</span>
+    </button>
+    <div class="faq-a">Sim. O SuplePro é focado em encapsulados mas funciona para qualquer produto com comissão. A % de comissão é configurável por venda.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      Posso usar no celular? <span class="arr">+</span>
+    </button>
+    <div class="faq-a">Sim, o layout é responsivo. A experiência é melhor no computador para visualizar os gráficos e a tabela de histórico, mas tudo funciona no celular também.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      Como funciona a garantia de 7 dias? <span class="arr">+</span>
+    </button>
+    <div class="faq-a">É simples: se em até 7 dias corridos após a compra você não ficar satisfeito por qualquer motivo, basta me enviar uma mensagem no WhatsApp pedindo o reembolso. Devolvo 100% do valor, sem perguntas. É seu direito como consumidor digital.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">
+      Tem suporte após a compra? <span class="arr">+</span>
+    </button>
+    <div class="faq-a">Sim. Você pode tirar dúvidas diretamente pelo WhatsApp. O arquivo é simples de usar, mas estou disponível para ajudar na configuração inicial.</div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section reveal">
+  <h2>Pronto pra ter<br>clareza sobre<br><em>o seu negócio?</em></h2>
+  <p>Garanta agora o SuplePro e tenha controle total do seu funil de X1 a partir de hoje.</p>
+  <a href="URL_DO_CHECKOUT_AQUI" target="_blank" class="cta-wpp">
+    Quero o SuplePro agora →
+  </a>
+  <div class="cta-sub">Acesso imediato · R$ 49,00 · Pagamento único</div>
+  <div class="cta-guarantee-note">🛡️ 7 dias de garantia incondicional · Risco zero pra você</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="nav-dot" style="width:6px;height:6px;animation:none;opacity:.5;"></div>
+      SuplePro · Dashboard de Gestão para Afiliados
+    </div>
+    <div style="font-size:12px;color:var(--muted);">Produto digital · Entrega imediata por e-mail</div>
+  </div>
+  <div class="footer-legal">
+    <span>© 2025 SuplePro. Todos os direitos reservados.</span>
+    <span>·</span>
+    <span>Este produto é destinado a afiliados de produtos digitais e físicos com tráfego pago. Não garantimos resultados financeiros específicos — o desempenho depende da operação de cada usuário.</span>
+    <span>·</span>
+    <a href="#">Política de Privacidade</a>
+    <span>·</span>
+    <a href="#">Termos de Uso</a>
+    <span>·</span>
+    <span>Dúvidas? Fale via WhatsApp.</span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+// FAQ
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// Scroll reveal
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// Animate mock bars when chart enters viewport
+const mockChart = document.querySelector('.mock-chart');
+if (mockChart) {
+  document.querySelectorAll('.mock-bar').forEach(bar => {
+    bar._targetHeight = bar.style.height;
+    bar.style.height = '0';
+    bar.style.transition = 'none';
+  });
+  const chartObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.mock-bar').forEach((bar, i) => {
+          setTimeout(() => {
+            bar.style.transition = 'height .5s ease';
+            bar.style.height = bar._targetHeight;
+          }, i * 40);
+        });
+        chartObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  chartObserver.observe(mockChart);
+}
+</script>
+</body>
+</html>
